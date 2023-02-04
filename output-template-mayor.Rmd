@@ -1,0 +1,81 @@
+---
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 2
+      
+params:
+  name: "candidate name"
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+
+```{r}
+#filter responses to only include responses for 1 candidate
+responses_mayor <- subset(responses_mayor, name == name)
+```
+
+# Responses from `r responses_mayor$name`
+
+## How candidates move around the city
+
+### `r questions$q_text[3]`
+`r responses_mayor$last_bus`
+
+### `r questions$q_text[4]`
+`r responses_mayor$last_bike`
+
+### `r questions$q_text[5]`
+`r responses_mayor$get_around`
+
+## Madison Bikes questions
+
+### `r questions$q_text[which(questions$q_label == "MB_network")]`
+`r responses_mayor$MB_network`
+
+### `r questions$q_text[which(questions$q_label == "MB_climate")]`
+`r responses_mayor$MB_climate`
+
+### `r questions$q_text[which(questions$q_label == "MB_policies")]`
+`r responses_mayor$MB_policies`
+
+## Madison is for People questions
+
+### `r questions$q_text[which(questions$q_label == "MIFP_preservation")]`
+`r responses_mayor$MIFP_preservation`
+
+### `r questions$q_text[which(questions$q_label == "MIFP_affordability")]`
+`r responses_mayor$MIFP_affordability`
+
+### `r questions$q_text[which(questions$q_label == "MIFP_zoning")]`
+`r responses_mayor$MIFP_zoning`
+
+## Madison Area Bus Advocates questions
+
+### `r questions$q_text[which(questions$q_label == "MABA_vision")]`
+`r responses_mayor$MABA_vision`
+
+### `r questions$q_text[which(questions$q_label == "MABA_funding")]`
+`r responses_mayor$MABA_funding`
+
+### `r questions$q_text[which(questions$q_label == "MABA_accessibility")]`
+`r responses_mayor$MABA_accessibility`
+
+
+
+
+
+```{r}
+params$title
+```
+
+
+
+
+
+
