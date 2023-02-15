@@ -2,10 +2,10 @@
 output: 
   html_document:
     toc: TRUE
-    toc_depth: 2
-      
+    toc_depth: 1
 params:
   name: "candidate name"
+title: "`r params$name`"
 ---
 
 
@@ -15,65 +15,75 @@ knitr::opts_chunk$set(echo = F)
 ```
 
 
+
 ```{r}
 #filter responses to only include responses for 1 candidate
 responses_mayor <- subset(responses_mayor, name == name)
 ```
 
-# Responses from `r responses_mayor$name`
+# How candidates move around the city
 
-## How candidates move around the city
-
-### `r questions$q_text[3]`
+## `r questions$q_text[3]`
 `r responses_mayor$last_bus`
 
-### `r questions$q_text[4]`
+## `r questions$q_text[4]`
 `r responses_mayor$last_bike`
 
-### `r questions$q_text[5]`
+## `r questions$q_text[5]`
 `r responses_mayor$get_around`
 
-## Madison Bikes questions
+# Madison Bikes questions
 
-### `r questions$q_text[which(questions$q_label == "MB_network")]`
+## `r long$topic[4]`
+
+**Question: `r long$question[4]` **
+
+`r long$answer[4]`
+
+## `r questions$q_text[which(questions$q_label == "MB_network")]`
 `r responses_mayor$MB_network`
 
-### `r questions$q_text[which(questions$q_label == "MB_climate")]`
+## `r questions$q_text[which(questions$q_label == "MB_climate")]`
 `r responses_mayor$MB_climate`
 
-### `r questions$q_text[which(questions$q_label == "MB_policies")]`
+## `r questions$q_text[which(questions$q_label == "MB_policies")]`
 `r responses_mayor$MB_policies`
 
-## Madison is for People questions
+# Madison is for People questions
 
-### `r questions$q_text[which(questions$q_label == "MIFP_preservation")]`
+## `r questions$q_text[which(questions$q_label == "MIFP_preservation")]`
 `r responses_mayor$MIFP_preservation`
 
-### `r questions$q_text[which(questions$q_label == "MIFP_affordability")]`
+## `r questions$q_text[which(questions$q_label == "MIFP_affordability")]`
 `r responses_mayor$MIFP_affordability`
 
-### `r questions$q_text[which(questions$q_label == "MIFP_zoning")]`
+## `r questions$q_text[which(questions$q_label == "MIFP_zoning")]`
 `r responses_mayor$MIFP_zoning`
 
-## Madison Area Bus Advocates questions
+# Madison Area Bus Advocates questions
 
-### `r questions$q_text[which(questions$q_label == "MABA_vision")]`
+## `r questions$q_text[which(questions$q_label == "MABA_vision")]`
 `r responses_mayor$MABA_vision`
 
-### `r questions$q_text[which(questions$q_label == "MABA_funding")]`
+## `r questions$q_text[which(questions$q_label == "MABA_funding")]`
 `r responses_mayor$MABA_funding`
 
-### `r questions$q_text[which(questions$q_label == "MABA_accessibility")]`
+## `r questions$q_text[which(questions$q_label == "MABA_accessibility")]`
 `r responses_mayor$MABA_accessibility`
 
 
 
-
-
-```{r}
-params$title
+```{r results='hide'}
+output_headings <- function(q){
+  question <- shiny::h3(responses_mayor_long$question[[q]], id = responses_mayor_long$question[[q]])
+  answer <- shiny::p(responses_mayor_long$answer[[q]])
+  paste(question, answer)
+}
 ```
 
+```{r results='asis'} 
+ map(1:nrow(responses_mayor_long),.f = output_headings) 
+``` 
 
 
 

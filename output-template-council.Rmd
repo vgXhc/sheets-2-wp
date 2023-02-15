@@ -1,0 +1,94 @@
+---
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 1
+    toc_float: true
+params:
+  name: "candidate name"
+  district: "district number"
+title: "`r paste(params$name, params$district)`"
+---
+
+
+# How candidates move around the city
+
+## `r responses$question[1]`
+`r paste0(params$name, ": ", responses$answer[1])`
+
+## `r responses$question[2]`
+`r responses$answer[2]`
+
+## `r responses$question[3]`
+`r responses$answer[3]`
+
+# Madison Bikes questions
+
+## `r responses$topic[10]`
+
+**Question: `r responses$question[10]` **
+
+`r responses$answer[10]`
+
+## `r responses$topic[11]`
+
+**Question: `r responses$question[11]` **
+
+`r responses$answer[11]`
+
+## `r responses$topic[12]`
+
+**Question: `r responses$question[12]` **
+
+`r responses$answer[12]`
+
+## `r responses$topic[13]`
+
+**Question: `r responses$question[13]` **
+
+`r responses$answer[13]`
+
+# Madison is for People questions
+
+## `r responses$topic[7]`
+
+**Question: `r responses$question[7]` **
+
+`r responses$answer[7]`
+
+## `r responses$topic[8]`
+
+**Question: `r responses$question[8]` **
+
+`r responses$answer[8]`
+
+## `r responses$topic[9]`
+
+**Question: `r responses$question[9]` **
+
+`r responses$answer[9]`
+
+
+# Madison Area Bus Advocates questions
+
+## `r responses$topic[4]`
+
+**Question: `r responses$question[4]` **
+
+`r responses$answer[4]`
+
+## `r responses$topic[5]`
+
+**Question: `r responses$question[5]` **
+
+`r responses$answer[5]`
+
+## `r responses$topic[6]`
+
+**Question: `r responses$question[6]` **
+
+`r responses$answer[6]`
+
+
+
+

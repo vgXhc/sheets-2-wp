@@ -1,0 +1,98 @@
+---
+title: "Candidate Q&A"
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 1
+  html_document:
+    toc: TRUE
+    toc_depth: 1
+    toc_float: true
+documentclass: scrreport
+---
+```{r echo=FALSE, results='hide', message=FALSE}
+library(tidyverse)
+library(googlesheets4)
+library(here)
+library(knitr)
+responses_council <- read_sheet("https://docs.google.com/spreadsheets/d/1zMTl2BQzQ231SFjN8RRKvZm3PidXSoS2tVDFXSn5AwU/",
+                                col_types = "cccccccccccccccc") |> 
+    mutate(district = factor(`Which district are you running for?`, c("District 1",
+                                       "District 2",
+                                       "District 3",
+                                       "District 4",
+                                       "District 5",
+                                       "District 6",
+                                       "District 7",
+                                       "District 8",
+                                       "District 9",
+                                       "District 10",
+                                       "District 11",
+                                       "District 12",
+                                       "District 13",
+                                       "District 14",
+                                       "District 15",
+                                       "District 16",
+                                       "District 17",
+                                       "District 18",
+                                       "District 19",
+                                       "District 20")),
+           district_short = str_remove(district, "istrict ")) |> 
+  arrange(district, `Your name`)
+
+responses_mayor <- read_sheet("https://docs.google.com/spreadsheets/d/1T3hQ20IDetkjQ71qj5nZqRiZ8fZ8XHoKDCiUKaIPs9Y/")
+
+responses_council_long <- responses_council |>
+  pivot_longer(cols = 6:ncol(responses_council)-2, 
+               names_to = "question", 
+               values_to = "answer") |> 
+  rename(name = `Your name`) |> 
+  mutate(topic = str_extract(question, "^(.*?)\\:"), # everything before the colon
+         question = if_else(is.na(topic), question, str_remove(question, topic)))
+
+responses_mayor_long <- responses_mayor |> 
+  mutate(district = "Mayoral candidate",
+         district_short = "mayoral cand.") |> 
+  pivot_longer(cols = 3:ncol(responses_mayor), 
+               names_to = "question", 
+               values_to = "answer") |> 
+  rename(name = `Your name`) |> 
+  mutate(topic = str_extract(question, "^(.*?)\\:"), # everything before the colon
+         question = if_else(is.na(topic), question, str_remove(question, topic)))
+  
+```
+
+last updated: `r Sys.time()`
+
+```{r echo=FALSE, results='hide', message=FALSE}
+knit_answer_child <- function(x){
+  responses <- responses_council_long |> 
+    filter(name == x)
+  district <- responses$district[[1]]
+  district_short <- responses$district_short[[1]]
+  knitr::knit_child(
+    'output_council_child.Rmd', envir = environment(), quiet = TRUE
+  )
+}
+
+knit_answer_child_mayor <- function(x){
+  responses <- responses_mayor_long |> 
+    filter(name == x)
+  district <- responses$district[[1]]
+  district_short <- responses$district_short[[1]]
+  knitr::knit_child(
+    'output_mayor_child.Rmd', envir = environment(), quiet = TRUE
+  )
+}
+```
+
+```{r results='asis', echo=FALSE}
+res <- lapply(responses_mayor$`Your name`, knit_answer_child_mayor)
+cat(unlist(res), sep = '\n')
+```
+
+```{r results='asis', echo=FALSE}
+res <- lapply(responses_council$`Your name`, knit_answer_child)
+cat(unlist(res), sep = '\n')
+```
+

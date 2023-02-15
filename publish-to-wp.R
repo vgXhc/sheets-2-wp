@@ -1,10 +1,26 @@
-
 library(tidyverse)
 library(googlesheets4)
 library(here)
+library(knitr)
+
 
 # read responses
 responses_mayor <- read_sheet("https://docs.google.com/spreadsheets/d/1T3hQ20IDetkjQ71qj5nZqRiZ8fZ8XHoKDCiUKaIPs9Y/")
+responses_council <- read_sheet("https://docs.google.com/spreadsheets/d/1zMTl2BQzQ231SFjN8RRKvZm3PidXSoS2tVDFXSn5AwU/")
+
+questions_council <- colnames(responses_council)
+
+responses_council_long <- responses_council |>
+  pivot_longer(cols = 4:ncol(responses_council), 
+               names_to = "question", 
+               values_to = "answer") |> 
+  rename(name = `Your name`,
+         district = `Which district are you running for?`) |> 
+  mutate(topic = str_extract(question, "^(.*?)\\:"), # everything before the colon
+         question = if_else(is.na(topic), question, str_remove(question, topic)))
+
+
+str_extract(questions_council, "^(.*?)\\:")
 
 questions <- tibble(
   q_label = c("time_stamp",
@@ -41,40 +57,40 @@ colnames(responses_mayor) <- c("time_stamp",
                                "MB_climate",
                                "MB_policies")
 
+
+
+## render markdown
 rmarkdown::render(
-  input = "output_template_mayor.Rmd",
+  input = "output-template-mayor.Rmd",
   output_file = here("output", paste0(responses_mayor$name, ".html")),
   params = list(
     name = "test"
   ))
 
-# extract and save attachments and return paths
-write_msg_files <- function(msg_file){
-  msg <- read_msg(paste0("data/All Files/", msg_file))
-  dir_name <- paste0("output/", msg_file)
-  dir.create(dir_name)
-  save_attachments(msg_obj = msg, path = dir_name)
-  #return path and file names for attachments
-  attachment_names <- list.files(dir_name)
-  attachment_paths <- paste0(msg_file, "/", attachment_names)
-  # contents for output documents
-  email <- data_frame(email = msg_file,
-                      from = unlist(msg$headers$From),
-                      to = unlist(msg$headers$To),
-                      cc = unlist(msg$headers$CC),
-                      subject = unlist(msg$headers$Subject),
-                      date = unlist(msg$headers$Date),
-                      body = paste(msg$body$text, collapse = "\n"),
-                      attachments = list(attachment_paths))
-  
-  #render output document
+render_council <- function(name){
+  responses <- responses_council_long |> 
+    filter(name == name)
+  district <- responses$district[[1]]
+  if (!file.exists(here("output", district))){
+    dir.create(here("output", district))
+  }
   rmarkdown::render(
-    input = "output_template.Rmd",
-    output_file = here("output", paste0(msg_file, ".html"))
-  )
+    input = "output-template-council.Rmd",
+    output_file = here("output", district, paste0(name, ".html")),
+    params = list(
+      name = name,
+      district = district
+    ))
 }
+
+render_council(responses_council$`Your name`[2])
+
+## could combine Rmd files as book chapters
+
+
 
 
 # iterate over list of files
 walk(files, write_attachments)
+
 

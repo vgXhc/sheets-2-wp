@@ -1,0 +1,13 @@
+name: elections-council
+title: elections-council
+username: kliems
+account: kliems
+server: data-viz.it.wisc.edu
+hostUrl: https://data-viz.it.wisc.edu/__api__
+appId: 476
+bundleId: 2705
+url: https://data-viz.it.wisc.edu/content/5a49094a-4139-42a9-97d6-a70cd69f4d53/
+when: 1676424926.19409
+lastSyncTime: 1676424926.19411
+asMultiple: FALSE
+asStatic: TRUE
