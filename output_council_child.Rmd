@@ -1,6 +1,6 @@
 # `r paste0(district, ": ", x)`
 
-## How candidates move around the city
+## Introduce yourself
 
 ### `r responses$question[1]`
 _`r paste0(x, " (", district_short, "):")`_ `r responses$answer[1]`
@@ -11,71 +11,77 @@ _`r paste0(x, " (", district_short, "):")`_ `r responses$answer[2]`
 ### `r responses$question[3]`
 _`r paste0(x, " (", district_short, "):")`_ `r responses$answer[3]`
 
-## Madison Bikes questions
-
-### `r responses$topic[10]`
-
-**Question: `r responses$question[10]` **
-
-_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[10]`
-
-### `r responses$topic[11]`
-
-**Question: `r responses$question[11]` **
-
-_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[11]`
-
-### `r responses$topic[12]`
-
-**Question: `r responses$question[12]` **
-
-_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[12]`
-
-### `r responses$topic[13]`
-
-**Question: `r responses$question[13]` **
-
-_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[13]`
-
-## Madison is for People questions
-
-### `r responses$topic[7]`
-
-**Question: `r responses$question[7]` **
-
-_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[7]`
-
-### `r responses$topic[8]`
-
-**Question: `r responses$question[8]` **
-
-_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[8]`
-
-### `r responses$topic[9]`
-
-**Question: `r responses$question[9]` **
-
-_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[9]`
+## Zoning and Land Use
 
 
-## Madison Area Bus Advocates questions
-
-### `r responses$topic[4]`
 
 **Question: `r responses$question[4]` **
 
 _`r paste0(x, " (", district_short, "):")`_ `r responses$answer[4]`
 
-### `r responses$topic[5]`
+
+<!-- ![](img/strong_towns.png) -->
+lorem_strong
 
 **Question: `r responses$question[5]` **
 
+
 _`r paste0(x, " (", district_short, "):")`_ `r responses$answer[5]`
 
-### `r responses$topic[6]`
+## Housing Affordability
+
+
 
 **Question: `r responses$question[6]` **
 
 _`r paste0(x, " (", district_short, "):")`_ `r responses$answer[6]`
+
+
+
+**Question: `r responses$question[7]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[7]`
+
+
+
+
+**Question: `r responses$question[8]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[8]`
+
+
+**Question: `r responses$question[9]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[9]`
+
+## Transportation, Safety, and Climate
+
+**Question: `r responses$question[10]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[10]`
+
+
+
+**Question: `r responses$question[11]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[11]`
+
+
+
+**Question: `r responses$question[12]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[12]`
+
+
+
+**Question: `r responses$question[13]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[13]`
+
+<!-- ![](https://www.madisonbikes.org/wp-content/uploads/2025/02/image-1.png) -->
+lorem_wilson
+**Question: `r responses$question[14]` **
+
+_`r paste0(x, " (", district_short, "):")`_ `r responses$answer[14]`
 
 [top of page](#top)
